@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>handy tools</title>
+	<style type="text/css">
+		body {
+			background-color: white;
+			font-family: 'Nunito', sans-serif;
+			font-size: 13px;
+			color: black;
+			text-align: justify;
+			/*
+			-webkit-text-shadow: 0 1.5px 0 black;
+			-moz-text-shadow: 0 1.5px 0 black;
+			text-shadow: 0 1.5px 0 black;
+			*/
+		}
+		a, a:visited {
+			color: blue;
+			text-decoration: none;
+		}
+		a:hover {
+			color: red;
+		}
+	</style>
+	<link href="http://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<script>
+		function HTMLEncode()
+		{
+			var code1 = document.getElementById('code1').value;
+			document.getElementById('code2').value = escape(code1);
+		}
+		function HTMLDecode()
+		{
+			var code1 = document.getElementById('code1').value;
+			document.getElementById('code2').value = unescape(code1);
+		}
+		function HTMLEntitiesByNameEncode()
+		{
+			var code1 = document.getElementById('code1').value;
+			document.getElementById('code2').value = code1
+			.replace(/&/g, '&amp;')
+			.replace(/ /g, '&nbsp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/"/g, '&quot;');
+		}
+		function HTMLEntitiesByNameDecode()
+		{
+			var code1 = document.getElementById('code1').value;
+			document.getElementById('code2').value = code1
+			.replace(/&nbsp;/g, ' ')
+			.replace(/&lt;/g, '<')
+			.replace(/&gt;/g, '>')
+			.replace(/&quot;/g, '"')
+			.replace(/&amp;/g, '&');
+		}
+		function HTMLEntitiesByNumberEncode()
+		{
+			var code1 = document.getElementById('code1').value;
+			document.getElementById('code2').value = code1
+			.replace(/&/g, '&#38;')
+			.replace(/ /g, '&#160;')
+			.replace(/</g, '&#60;')
+			.replace(/>/g, '&#62;')
+			.replace(/"/g, '&#34;');
+		}
+		function HTMLEntitiesByNumberDecode()
+		{
+			var code1 = document.getElementById('code1').value;
+			document.getElementById('code2').value = code1
+			.replace(/&#38;/g, '&;')
+			.replace(/&#160;/g, ' ')
+			.replace(/&#60;/g, '<')
+			.replace(/&#62;/g, '>')
+			.replace(/&#34;/g, '"');
+		}
+		function ShellcodeEncode()
+		{
+			var code1 = document.getElementById('code1').value;
+			var code2 = '';
+			for(var i = 0; i < code1.length; i++)
+				code2 += '\\x' + code1.charCodeAt(i).toString(16);
+			document.getElementById('code2').value = code2;
+		}
+		function ShellcodeDecode()
+		{
+			var code1 = document.getElementById('code1').value;
+			var code2 = code1.split('\\x');
+			code1 = '';
+			for(var i = 1; i < code2.length; i++)
+				code1 += String.fromCharCode(parseInt(code2[i],16));
+			document.getElementById('code2').value = code1;
+		}
+		function JSExec()
+		{
+			var code1 = document.getElementById('code1').value;
+			eval(code1);
+		}
+	</script>
+
+	<textarea id="code1" rows="5" style="width: 100%;"></textarea>
+	<textarea id="code2" rows="5" style="width: 100%;"></textarea>
+
+	<table>
+		<tr>
+			<td><a href="#" onclick="HTMLEncode();">HTML encode</a></td>
+			<td><a href="#" onclick="HTMLDecode();">HTML decode</a></td>
+		</tr>
+		<tr>
+			<td><a href="#" onclick="HTMLEntitiesByNameEncode();">HTML entities encode by name</a></td>
+			<td><a href="#" onclick="HTMLEntitiesByNameDecode();">HTML entities decode by name</a></td>
+		</tr>
+		<tr>
+			<td><a href="#" onclick="HTMLEntitiesByNumberEncode();">HTML entities encode by number</a></td>
+			<td><a href="#" onclick="HTMLEntitiesByNumberDecode();">HTML entities decode by number</a></td>
+		</tr>
+		<tr>
+			<td><a href="#" onclick="ShellcodeEncode();">Shellcode encode</a></td>
+			<td><a href="#" onclick="ShellcodeDecode();">Shellcode decode</a></td>
+		</tr>
+		<tr>
+			<td colspan="2"><a href="#" onclick="JSExec();">JavaScript execute</a></td>
+		</tr>
+	</table>
+</body>
+</html>
